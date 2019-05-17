@@ -11,7 +11,7 @@ library(tidyverse)
 
 ############function defenitions################
 
-#returns confidence interval of a mean or proportion (input prop as 0 or 1)
+#returns vector of samples of means or proportions (input prop as 0 or 1)
 boot_mean <- function(x, iterations = 1000){
   samples_means <- numeric(iterations)
   for (i in 1:iterations){
@@ -21,7 +21,7 @@ boot_mean <- function(x, iterations = 1000){
   return(samples_means)
 }
 
-#returns confidence interval of proportion when target is not 0 or 1
+#returns vector of samples of proportions when target is not 0 or 1
 boot_prop <- function(x, iterations = 1000, target = 1){
   samples_props <- numeric(iterations)
   for (i in 1:iterations){
@@ -41,7 +41,7 @@ ci_boot <- function(x, ci = 0.95) {
   return(tibble)
 }
 
-#returns the condidence interval for precent difference in mean or proportion between two groups. Prop should be 0 and 1
+#returns a data frame of the condidence interval for precent difference in mean or proportion between two groups. Prop should be 0 and 1
 ab_boot <- function(treatment, control, iterations = 1000, ci = 0.95) {
   treatment_boot <- boot_mean(treatment, iterations)
   control_boot <- boot_mean(control, iterations)
